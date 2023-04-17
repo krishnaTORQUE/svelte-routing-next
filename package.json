@@ -1,6 +1,6 @@
 {
     "name": "svelte-routing-next",
-    "version": "1.6.0",
+    "version": "1.7.0",
     "description": "A declarative Svelte routing library",
     "author": "Krishna Torque",
     "license": "MIT",
