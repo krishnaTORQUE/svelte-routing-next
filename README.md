@@ -1,8 +1,11 @@
 # Svelte Routing Next
 
+A declarative Svelte routing library.
+
 Svelte Routing [Forked](https://github.com/EmilTholin/svelte-routing)
 
-A declarative Svelte routing library.
+View
+[CHANGELOG](https://github.com/krishnaTORQUE/svelte-routing-next/blob/master/CHANGELOG.md)
 
 ## Getting started
 

@@ -11,12 +11,14 @@
 -   PR Merged [192](https://github.com/EmilTholin/svelte-routing/pull/193)
 -   PR Merged [188](https://github.com/EmilTholin/svelte-routing/pull/188)
 -   PR Merged [175](https://github.com/EmilTholin/svelte-routing/pull/175)
--   PR Merged[173](https://github.com/EmilTholin/svelte-routing/pull/173)
+-   PR Merged [173](https://github.com/EmilTholin/svelte-routing/pull/173)
 -   PR Merged [158](https://github.com/EmilTholin/svelte-routing/pull/158)
 -   PR Merged [105](https://github.com/EmilTholin/svelte-routing/pull/105)
 -   PR Merged [95](https://github.com/EmilTholin/svelte-routing/pull/95)
 -   PR Merged [85](https://github.com/EmilTholin/svelte-routing/pull/85)
 -   PR Merged [77](https://github.com/EmilTholin/svelte-routing/pull/77)
+-   PR/Issue [200](https://github.com/EmilTholin/svelte-routing/pull/200),
+    Tested & is not exists/relevant.
 -   Issue Fixed [122](https://github.com/EmilTholin/svelte-routing/issues/122),
     [4652](https://github.com/sveltejs/svelte/issues/4652)
 
