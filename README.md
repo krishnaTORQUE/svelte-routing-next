@@ -1,20 +1,19 @@
-[![npm][npm]][npm-url]
+# Svelte Routing Next
 
-# Svelte Routing
+Svelte Routing [Forked](https://github.com/EmilTholin/svelte-routing)
 
-> **Warning**
-> Use [`SvelteKit`](https://kit.svelte.dev/) instead of `svelte-routing` for new projects. It's a more versatile solution in every possible way.
-
-A declarative Svelte routing library with SSR support.
+A declarative Svelte routing library.
 
 ## Getting started
 
-Look at the [example folder][example-folder-url] for an example project setup.
+Look at the
+[original example folder](https://github.com/EmilTholin/svelte-routing/tree/master/example)
+for project setup.
 
 ## Install
 
 ```bash
-npm install --save svelte-routing
+npm i -D svelte-routing-next
 ```
 
 ## Usage
@@ -22,24 +21,24 @@ npm install --save svelte-routing
 ```html
 <!-- App.svelte -->
 <script>
-  import { Router, Link, Route } from "svelte-routing";
+  import { Router, Link, Route } from "svelte-routing-next";
   import Home from "./routes/Home.svelte";
   import About from "./routes/About.svelte";
   import Blog from "./routes/Blog.svelte";
 
-  export let url = "";
+  export let url = "/";
 </script>
 
-<Router url="{url}">
+<Router {url}>
   <nav>
     <Link to="/">Home</Link>
-    <Link to="about">About</Link>
-    <Link to="blog">Blog</Link>
+    <Link to="/about">About</Link>
+    <Link to="/blog">Blog</Link>
   </nav>
   <div>
-    <Route path="blog/:id" component="{BlogPost}" />
-    <Route path="blog" component="{Blog}" />
-    <Route path="about" component="{About}" />
+    <Route path="/blog/:id" component={BlogPost} />
+    <Route path="/blog" component={Blog} />
+    <Route path="/about" component={About} />
     <Route path="/"><Home /></Route>
   </div>
 </Router>
@@ -50,36 +49,21 @@ npm install --save svelte-routing
 import App from "./App.svelte";
 
 const app = new App({
-  target: document.getElementById("app"),
-  hydrate: true
+    target: document.getElementById("app"),
 });
-```
-
-```javascript
-// server.js
-const { createServer } = require("http");
-const app = require("./dist/App.js");
-
-createServer((req, res) => {
-  const { html } = app.render({ url: req.url });
-
-  res.write(`
-    <!DOCTYPE html>
-    <div id="app">${html}</div>
-    <script src="/dist/bundle.js"></script>
-  `);
-
-  res.end();
-}).listen(3000);
 ```
 
 ## API
 
 #### `Router`
 
-The `Router` component supplies the `Link` and `Route` descendant components with routing information through context, so you need at least one `Router` at the top of your application. It assigns a score to all its `Route` descendants and picks the best match to render.
+The `Router` component supplies the `Link` and `Route` descendant components
+with routing information through context, so you need at least one `Router` at
+the top of your application. It assigns a score to all its `Route` descendants
+and picks the best match to render.
 
-`Router` components can also be nested to allow for seamless merging of many smaller apps.
+`Router` components can also be nested to allow for seamless merging of many
+smaller apps.
 
 ###### Properties
 
@@ -103,18 +87,32 @@ A component used to navigate around the application.
 
 #### `Route`
 
-A component that will render its `component` property or children when its ancestor `Router` component decides it is the best match.
+A component that will render its `component` property or children when its
+ancestor `Router` component decides it is the best match.
 
-All properties other than `path` and `component` given to the `Route` will be passed to the rendered `component`.
+All properties other than `path` and `component` given to the `Route` will be
+passed to the rendered `component`.
 
-Potential path parameters will be passed to the rendered `component` as properties. A wildcard `*` can be given a name with `*wildcardName` to pass the wildcard string as the `wildcardName` property instead of as the `*` property.
+Potential path parameters will be passed to the rendered `component` as
+properties. A wildcard `*` can be given a name with `*wildcardName` to pass the
+wildcard string as the `wildcardName` property instead of as the `*` property.
 
-Potential path parameters are passed back to the parent using props, so they can be exposed to the slot template using `let:params`.
+Potential path parameters are passed back to the parent using props, so they can
+be exposed to the slot template using `let:params`.
 
 ```html
-<Route path="blog/:id" let:params>
-  <BlogPost id="{params.id}" />
+<Route path="/blog/:id" let:params>
+    <BlogPost id="{params.id}" />
 </Route>
+```
+
+The active status of link can be exposed to the slot template using
+`let:active`.
+
+```html
+<Link to="/browser" let:active>
+  <MenuItem active={active}>Browser</MenuItem>
+</Link>
 ```
 
 ###### Properties
@@ -126,65 +124,74 @@ Potential path parameters are passed back to the parent using props, so they can
 
 #### `navigate`
 
-A function that allows you to imperatively navigate around the application for those use cases where a `Link` component is not suitable, e.g. after submitting a form.
+A function that allows you to imperatively navigate around the application for
+those use cases where a `Link` component is not suitable, e.g. after submitting
+a form.
 
-The first argument is a string denoting where to navigate to, and the second argument is an object with a `replace` and `state` property equivalent to those in the `Link` component.
+The first argument is a string denoting where to navigate to, and the second
+argument is an object with a `replace` and `state` property equivalent to those
+in the `Link` component.
 
 ```html
 <script>
-  import { navigate } from "svelte-routing";
+    import { navigate } from "svelte-routing-next";
 
-  function onSubmit() {
-    login().then(() => {
-      navigate("/success", { replace: true });
-    });
-  }
+    function onSubmit() {
+        login().then(() => {
+            navigate("/success", { replace: true });
+        });
+    }
 </script>
 ```
 
 #### `link`
 
-An action used on anchor tags to navigate around the application. You can add an attribute `replace` to replace the current entry in the history stack instead of adding a new one.
+An action used on anchor tags to navigate around the application. You can add an
+attribute `replace` to replace the current entry in the history stack instead of
+adding a new one.
 
 ```html
 <script>
-  import { link } from "svelte-routing";
+    import { link } from "svelte-routing-next";
 </script>
 
 <Router>
-  <a href="/" use:link>Home</a>
-  <a href="/replace" use:link replace>Replace this URL</a>
-  <!-- ... -->
+    <a href="/" use:link>Home</a>
+    <a href="/replace" use:link replace>Replace this URL</a>
+    <!-- ... -->
 </Router>
 ```
 
 #### `links`
 
-An action used on a root element to make all relative anchor elements navigate around the application. You can add an attribute `replace` on any anchor to replace the current entry in the history stack instead of adding a new one. You can add an attribute `noroute` for this action to skip over the anchor and allow it to use the native browser action.
+An action used on a root element to make all relative anchor elements navigate
+around the application. You can add an attribute `replace` on any anchor to
+replace the current entry in the history stack instead of adding a new one. You
+can add an attribute `noroute` for this action to skip over the anchor and allow
+it to use the native browser action.
 
 ```html
 <!-- App.svelte -->
 <script>
-  import { links } from "svelte-routing";
+    import { links } from "svelte-routing-next";
 </script>
 
 <div use:links>
-  <Router>
-    <a href="/">Home</a>
-    <a href="/replace" replace>Replace this URL</a>
-    <a href="/native" noroute>Use the native action</a>
-    <!-- ... -->
-  </Router>
+    <Router>
+        <a href="/">Home</a>
+        <a href="/replace" replace>Replace this URL</a>
+        <a href="/native" noroute>Use the native action</a>
+        <!-- ... -->
+    </Router>
 </div>
 ```
 
-## SSR Caveat
+# License
 
-In the browser we wait until all child `Route` components have registered with their ancestor `Router` component before we let the `Router` pick the best match. This approach is not possible on the server, because when all `Route` components have registered and it is time to pick a match the SSR has already completed, and a document with no matching route will be returned.
+This project is licensed under the [**MIT**](LICENSE).
 
-We therefore resort to picking the first matching `Route` that is registered on the server, so it is of utmost importance that you `sort your Route components from the most specific to the least specific if you are using SSR`.
+# Contribution
 
-[npm]: https://img.shields.io/npm/v/svelte-routing.svg
-[npm-url]: https://npmjs.com/package/svelte-routing
-[example-folder-url]: https://github.com/EmilTholin/svelte-routing/tree/master/example
-[example-folder-navlink]: https://github.com/EmilTholin/svelte-routing/tree/master/example/src/components/NavLink.svelte
+Unless you explicitly state otherwise, any contribution intentionally submitted
+for this project by you, shall be licensed as **MIT**, without any additional
+terms or conditions. [**Code of Conduct**](CODE_OF_CONDUCT.md).

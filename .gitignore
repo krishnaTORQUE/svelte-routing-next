@@ -1,5 +1,3 @@
 node_modules
 package-lock.json
 yarn.lock
-example/public/*
-!example/public/global.css
